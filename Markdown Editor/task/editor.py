@@ -79,11 +79,7 @@ def program():
             result_file.writelines(formatted_text_list)
         result_file.close()
 
-    def is_command_done(command):
-        if command == '!done':
-            save_to_file()
-            return True
-
+    def command_check():
         if command == '!help':
             print_help_message()
             return False
@@ -93,16 +89,26 @@ def program():
             return False
 
         formatters[command]()
+
+    def is_command_done():
+        if command == '!done':
+            save_to_file()
+            return True
+
+        command_check()
         return False
 
     def program_run():
+        nonlocal command
         while True:
-            if is_command_done(input("- Choose a formatter:")):
+            command = input("- Choose a formatter:")
+
+            if is_command_done():
                 break
             print_markdown_text()
 
+    command = ''
     formatted_text_list = []
-
     formatters = {
         "plain": plain_formatter,
         "bold": bold_formatter,
