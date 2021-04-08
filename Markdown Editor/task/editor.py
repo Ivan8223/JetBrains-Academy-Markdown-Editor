@@ -77,7 +77,6 @@ def program():
     def save_to_file():
         with open('output.md', 'w') as result_file:
             result_file.writelines(formatted_text_list)
-        result_file.close()
 
     def command_check():
         if command == '!help':
